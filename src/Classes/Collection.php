@@ -653,7 +653,7 @@ abstract class Collection implements ArrayAccess, JsonSerializable, IteratorAggr
      *
      * @return \ArrayIterator
      */
-    public function getIterator(): Iterator
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->words);
     }

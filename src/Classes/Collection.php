@@ -190,7 +190,7 @@ abstract class Collection implements ArrayAccess, JsonSerializable, IteratorAggr
      */
     public function forget($keys)
     {
-        foreach ((array) $keys as $key) {
+        foreach ((array)$keys as $key) {
             $this->offsetUnset($key);
         }
 
@@ -328,7 +328,7 @@ abstract class Collection implements ArrayAccess, JsonSerializable, IteratorAggr
      * @param mixed $key
      * @return mixed
      */
-    public function offsetGet($key)
+    public function offsetGet($key): mixed
     {
         return $this->words[$key];
     }
@@ -339,7 +339,7 @@ abstract class Collection implements ArrayAccess, JsonSerializable, IteratorAggr
      * @param mixed $key
      * @return bool
      */
-    public function offsetExists($key)
+    public function offsetExists($key): bool
     {
         return array_key_exists($key, $this->words);
     }
@@ -350,7 +350,7 @@ abstract class Collection implements ArrayAccess, JsonSerializable, IteratorAggr
      * @param mixed $key
      * @param mixed $value
      */
-    public function offsetSet($key, $value)
+    public function offsetSet($key, $value): void
     {
         if (is_null($key)) {
             $this->words[] = $value;
@@ -364,7 +364,7 @@ abstract class Collection implements ArrayAccess, JsonSerializable, IteratorAggr
      *
      * @param string $key
      */
-    public function offsetUnset($key)
+    public function offsetUnset($key): void
     {
         unset($this->words[$key]);
     }
@@ -653,7 +653,7 @@ abstract class Collection implements ArrayAccess, JsonSerializable, IteratorAggr
      *
      * @return \ArrayIterator
      */
-    public function getIterator()
+    public function getIterator(): Iterator
     {
         return new ArrayIterator($this->words);
     }
@@ -663,7 +663,7 @@ abstract class Collection implements ArrayAccess, JsonSerializable, IteratorAggr
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return array_map(function ($value) {
             if ($value instanceof JsonSerializable) {
@@ -694,15 +694,23 @@ abstract class Collection implements ArrayAccess, JsonSerializable, IteratorAggr
             switch ($operator) {
                 default:
                 case '=':
-                case '==':  return $retrieved == $value;
+                case '==':
+                    return $retrieved == $value;
                 case '!=':
-                case '<>':  return $retrieved != $value;
-                case '<':   return $retrieved < $value;
-                case '>':   return $retrieved > $value;
-                case '<=':  return $retrieved <= $value;
-                case '>=':  return $retrieved >= $value;
-                case '===': return $retrieved === $value;
-                case '!==': return $retrieved !== $value;
+                case '<>':
+                    return $retrieved != $value;
+                case '<':
+                    return $retrieved < $value;
+                case '>':
+                    return $retrieved > $value;
+                case '<=':
+                    return $retrieved <= $value;
+                case '>=':
+                    return $retrieved >= $value;
+                case '===':
+                    return $retrieved === $value;
+                case '!==':
+                    return $retrieved !== $value;
             }
         };
     }
